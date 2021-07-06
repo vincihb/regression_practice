@@ -24,4 +24,4 @@ def create_logistic(num_points):
     np.save("./datasets/logistic.npy", (x, y))
 
 
-create_linear(1000)
+create_logistic(1000)

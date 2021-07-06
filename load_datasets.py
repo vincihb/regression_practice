@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import math
 
 
 def estimate_linear(num_points, location="./datasets/linear.npy"):
@@ -23,10 +24,25 @@ def estimate_linear(num_points, location="./datasets/linear.npy"):
 def estimate_logistic(num_points, location="./datasets/logistic.npy"):
     x, y = np.load(location)
     print(num_points)
-    x_temp = []
-    for x_val in x:
-        x_temp.append(x_val)
-        print(x_val)
+    mu = []
+    betas = np.random.standard_normal(2)
+    n = 0
+    while n < len(x):
+        x_val = x[n]
+        if n == 1:
+            X = np.concatenate((np.array([X]), np.array([np.concatenate((np.ones(1), np.array([x_val])))])))
+        elif n > 1:
+            X = np.concatenate((np.array(X), np.array([np.concatenate((np.ones(1), np.array([x_val])))])))
+        else:
+            X = np.concatenate((np.ones(1), np.array([x_val])))
+        print(X)
+        mu_val = 1.0/(1 + math.exp(- betas[0] + betas[1] * x_val))
+        mu.append(mu_val)
+        print(mu_val)
+        Y = np.array(y[0: n + 1])
+        if n == 4:
+            break
+        n = n + 1
 
 
 estimate_logistic(1000000)
