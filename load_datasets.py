@@ -38,8 +38,13 @@ def estimate_logistic(num_points, location="./datasets/logistic.npy"):
         print(X)
         mu_val = 1.0/(1 + math.exp(- betas[0] + betas[1] * x_val))
         mu.append(mu_val)
-        print(mu_val)
         Y = np.array(y[0: n + 1])
+        S = np.diag([mu_val_temp for mu_val_temp in mu])
+        if n == 0:
+            print("Here")
+        else:
+            temp = np.linalg.inv(np.matmul(np.matmul(np.transpose(X), S), X))
+            print(temp)
         if n == 4:
             break
         n = n + 1

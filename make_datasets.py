@@ -20,7 +20,9 @@ def create_logistic(num_points):
     b = 1.0
     y_temp = [m * x_val + b for x_val in x]
     y_temp = np.array(y_temp) + epsilon
-    y = [1.0 / (1 + math.exp(-y_val)) for y_val in y_temp]
+    p = [1.0 / (1 + math.exp(-y_val)) for y_val in y_temp]
+    y = [np.random.binomial(1, p_val) for p_val in p]
+    print(y)
     np.save("./datasets/logistic.npy", (x, y))
 
 
